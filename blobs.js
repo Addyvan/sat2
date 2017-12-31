@@ -27,10 +27,10 @@ class Blob {
 
 class Padel {
     constructor() {
-
+        
     }
     rotate() {
-
+        
     }
     draw() {
         
