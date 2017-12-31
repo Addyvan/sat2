@@ -4,10 +4,10 @@ var currentLoop = 0;
 function update(progress) {
   // Update the state of the game
   currentLoop++;
-  if (currentLoop % 150 == 0 && allBlobs.length < 25) {
+  if (currentLoop % 150 == 0 && allBlobs.length < MAX_BLOBS) {
     genNewBlobs(1);
   }
-  if (allBlobs.length >= 25) {
+  if (allBlobs.length >= MAX_BLOBS) {
     allBlobs.shift();
   } 
   for (var i = 0; i < allBlobs.length; i++) {
@@ -26,7 +26,7 @@ function draw() {
 
 function genNewBlobs(amount) {
     for (var i = 0; i < amount; i++) {
-      allBlobs.push(new Blob(15, 15, 20, 400, "blue"));
+      allBlobs.push(new Blob(15, 15, 20, 400, PLAYER_ONE_COLOR));
       console.log(allBlobs.length);
     }
 }
