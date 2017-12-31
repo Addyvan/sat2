@@ -1,24 +1,34 @@
-// Setup variables
-
-var canvas = document.getElementById("canv");
-var width = canvas.width;
-var height = canvas.height;
-width = WIDTH;
-height = HEIGHT;
-var ctx = canvas.getContext("2d");
-ctx.fillStyle = "white";
-
-
+var allBlobs = [];
+var test = 0;
 
 function update(progress) {
-  // Update the state of the game  
-  
+  // Update the state of the game
+  test++;
+  if (test % 150 == 0 && allBlobs.length < 25) {
+      genNewBlobs(1);
+  }
+  for (var i = 0; i < allBlobs.length; i++) {
+      allBlobs[i].move();
+  }
 }
 
 function draw() {
   // Draw the shit
-  ctx.clearRect(0, 0, width, height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (var i = 0; i < allBlobs.length; i++) {
+      allBlobs[i].draw();
+  }
 }
+
+function genNewBlobs(amount) {
+    for (var i = 0; i < amount; i++) {
+        allBlobs.push(new Blob(15, 15, 20, 400, "blue"));
+        console.log(allBlobs.length);
+    }
+}
+
+
+
 
 function loop(timestamp) {
   var progress = timestamp - lastRender;
