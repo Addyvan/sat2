@@ -1,15 +1,19 @@
 var allBlobs = [];
-var test = 0;
+var currentLoop = 0;
 
 function update(progress) {
   // Update the state of the game
-  test++;
-  if (test % 150 == 0 && allBlobs.length < 25) {
+  currentLoop++;
+  if (currentLoop % 150 == 0 && allBlobs.length < 25) {
       genNewBlobs(1);
+  }
+  if (allBlobs.length >= 25) {
+      allBlobs.shift();
   }
   for (var i = 0; i < allBlobs.length; i++) {
       allBlobs[i].move();
   }
+
 }
 
 function draw() {
