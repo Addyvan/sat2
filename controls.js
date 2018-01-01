@@ -1,9 +1,17 @@
+/*
+
+- The keydown and keyup functions are specially named to listen to events corresponding to key up / key downb. 
+- To add new keys just find the key code and add it to the key map and add a boolean var in pressed keys. 
+
+
+*/
+
 var state = {
   pressedKeys: {
-    p1left: false,
-    p1right: false,
-    p2left: false,
-    p2right: false,
+    d: false,
+    a: false,
+    right: false,
+    left: false,
     w: false,
     s: false,
     up: false,
@@ -13,10 +21,10 @@ var state = {
 };
 
 var keyMap = {
-  68: 'p1right',
-  65: 'p1left',
-  39: 'p2right',
-  37: 'p2left',
+  68: 'd',
+  65: 'a',
+  39: 'right',
+  37: 'left',
   87: 'w',
   83: 's',
   38: 'up',

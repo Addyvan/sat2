@@ -1,10 +1,12 @@
+/*
+Shitty temp menu
+*/
+
+
 var selected = 0;
 var menuOn = true;
-var selectedColor = "#F9E0CC";
 var colors = [selectedColor, "#FFFFFF", "#FFFFFF", "#FFFFFF"];
 var options = ["PLAY", "SETTINGS", "IDK", "IDK"]
-var buttonHeight = 100;
-var buttonWidth = 600;
 var framesSinceLastMenuMove = 0;
 var moving = false;
 

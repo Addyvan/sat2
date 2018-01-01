@@ -1,4 +1,9 @@
-// blobs
+/*
+Current classes:
+- Blob class for the dots
+- Paddle class for the paddles
+
+*/
 
 class Blob {
     constructor(height, width, weight, x, color) {
@@ -20,19 +25,48 @@ class Blob {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.width/2,0,2*Math.PI);
-        ctx.fillStyle = "#FF0000";
+        ctx.fillStyle = this.color;
         ctx.fill();
     }
 }
 
-class Padel {
-    constructor() {
-        
+class Paddle {
+    constructor(player) {
+        this.width = 150;
+        this.height = 25;
+        this.rotation = 0;
+        if (player == 1) {
+            this.axis = {
+                x: 100,
+                y: 400 
+            };
+            this.color = PLAYER_ONE_COLOR;
+        } else {
+            if (player == 2) {
+                this.axis = {
+                    x: 550,
+                    y: 400
+                };
+                this.color = PLAYER_TWO_COLOR;
+            } else {
+                console.log("Error player must be set to 1 or 2");
+            }
+        }
+
     }
-    rotate() {
-        
+    rotateLeft() {
+        this.rotation -= 1  * Math.PI / 180;
+    }
+    rotateRight() {
+        this.rotation += 1 * Math.PI / 180;
     }
     draw() {
-        
+        // you need .save() and .restore() so that it all doesnt rotate
+        ctx.save();
+        ctx.translate(this.axis.x+this.width/2,this.axis.y+this.height/2);
+        ctx.rotate(this.rotation);
+        ctx.fillStyle=this.color;
+        ctx.fillRect(-this.width/2, -this.height/2, this.width, this.height);
+        ctx.restore();
     }
 }
