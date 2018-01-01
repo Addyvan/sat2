@@ -1,9 +1,9 @@
 
 /* 
 NEEDS DOING:
-- list collision points
-- add gravity
-- ...
+- list all collision points
+- create blob physics in sprites.js
+- create gaem
 
 */
 

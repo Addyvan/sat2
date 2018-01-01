@@ -7,17 +7,23 @@ Current classes:
 
 class Blob {
     constructor(height, width, weight, x, color) {
-        console.log("constructing new blob");
+        // blob attributes
         this.height = height;
         this.width = width;
         this.weight = weight;
         this.color = color;
 
+        // positional variables
         this.y = 0;
         this.x = x;
         this.velocity_x = 0;
         this.velocity_y = 2.5;
     }
+    // blob physics formula (constants in settings.js)
+    updateVelocity() {
+
+    }
+    // update position based on velocity
     move() {
         this.x += this.velocity_x;
         this.y += this.velocity_y;
@@ -32,8 +38,8 @@ class Blob {
 
 class Paddle {
     constructor(player) {
-        this.width = 150;
-        this.height = 25;
+        this.width = PADDLE_WIDTH;
+        this.height = PADDLE_HEIGHT;
         this.rotation = 0;
         if (player == 1) {
             this.axis = {
