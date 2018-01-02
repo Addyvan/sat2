@@ -68,9 +68,9 @@ function genNewBlobs(amount) {
       randNum = Math.random();
       // args for blob are (height, width, weight, x, color)
       if (randNum > 0.5) {
-        allBlobs.push(new Blob(15, 15, 20, randomIntFromInterval(0,800), PLAYER_ONE_COLOR));
+        allBlobs.push(new Blob(15, 15, 20, randomIntFromInterval(100,300), PLAYER_ONE_COLOR));
       } else {
-        allBlobs.push(new Blob(15, 15, 20, randomIntFromInterval(0,800), PLAYER_TWO_COLOR));
+        allBlobs.push(new Blob(15, 15, 20, randomIntFromInterval(550,750), PLAYER_TWO_COLOR));
       }
     }
 }
