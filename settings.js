@@ -18,7 +18,7 @@ var buttonHeight = 100;
 var buttonWidth = 600;
 
 // PHYSICS OPTIONS
-var GRAVITY = -9.8
+var GRAVITY = -19.8
 
 //Control sensitivity
 var ROTATION_SPEED=1

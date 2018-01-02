@@ -75,6 +75,13 @@ function genNewBlobs(amount) {
     }
 }
 
+function checkAndResolveCollisionWall(ball){
+  //only check for collisions with side walls for now
+  if ((ball.x < 0 +ball.width/2) || (ball.x > WIDTH -ball.width/2) ){
+    ball.velocity.x*=-1;
+  }
+}
+
 function checkCollision(paddle,ball){
   //https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
   //check for collision between paddle and ball
@@ -99,6 +106,14 @@ function checkCollision(paddle,ball){
   return false;
 }
 
+function bounceOffPaddle(paddle,ball){
+  //todo affect the paddle 
+  var normaliser=1/Math.sqrt(paddle.a*paddle.a+paddle.b*paddle.b);
+  var multiplier= 2*(paddle.a*ball.velocity.x+paddle.b*ball.velocity.y)*normaliser;
+  ball.velocity.x=-(multiplier*paddle.a*normaliser-ball.velocity.x);
+  ball.velocity.y=(multiplier*paddle.b*normaliser-ball.velocity.y);
+}
+
 function distanceFromLine(a,b,c,x,y){
   //console.log([a,b,c,x,y]);
   return Math.abs(a*x+b*y+c)/Math.sqrt(a*a+b*b);
@@ -108,13 +123,18 @@ function resolveCollisions(){
   //detect all collisions and resolve accordingly
   //todo ball to ball collisions
   for(var i =0; i < allBlobs.length ; i++){
+
+    checkAndResolveCollisionWall(allBlobs[i]);
+
     if (checkCollision(player1,allBlobs[i])){
       //bounce off paddle todo
-      allBlobs[i].velocity.y*=-1;
+      //allBlobs[i].velocity.y*=-1;
+      bounceOffPaddle(player1,allBlobs[i]);
       console.log("collision with paddle 1!");
     }else if (checkCollision(player2,allBlobs[i]) ){
       //bounce off paddle todo
-      allBlobs[i].velocity.y*=-1;
+      //allBlobs[i].velocity.y*=-1;
+      bounceOffPaddle(player2,allBlobs[i]);
       console.log("collision with paddle 2!");
     }
   }

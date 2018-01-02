@@ -73,6 +73,10 @@ class Paddle {
     rotateRight() {
         this.rotation += 1 * Math.PI / 180;
     }
+
+    update(){
+        
+    }
     draw() {
         // you need .save() and .restore() so that it all doesnt rotate
         ctx.save();
