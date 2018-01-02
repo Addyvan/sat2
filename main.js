@@ -3,7 +3,7 @@
 NEEDS DOING:
 - list all collision points
 - create blob physics in sprites.js
-- create gaem
+- create game
 
 */
 
@@ -30,10 +30,13 @@ function update(progress) {
 
   // Move the blobs based on their current velocity
   for (var i = 0; i < allBlobs.length; i++) {
-    allBlobs[i].move();
+    allBlobs[i].update(progress);
   }
 
+  //resolve collisions
+  resolveCollisions();
   // PADDLE CONTROLS
+  //player1.update()
   if (state.pressedKeys.a == true) {
     player1.rotateLeft();
   }
@@ -72,6 +75,51 @@ function genNewBlobs(amount) {
     }
 }
 
+function checkCollision(paddle,ball){
+  //https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
+  //check for collision between paddle and ball
+  //only calculate for balls which are above the paddle
+  //console.log("checking collisions")
+  //console.log(ball.x)
+  //console.log(paddle.axis.x-PADDLE_WIDTH)
+
+  paddle.updateLineEquation();
+
+  if (paddle.start<ball.x && ball.x <paddle.end){
+    var dist=this.distanceFromLine(paddle.a,paddle.b,paddle.c,ball.x,ball.y);
+    //console.log(dist);
+    //console.log(ball.width/2);
+    //console.log(paddle.height/2);
+    //console.log(333);
+    if (dist<ball.width/2+paddle.height/2){
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function distanceFromLine(a,b,c,x,y){
+  //console.log([a,b,c,x,y]);
+  return Math.abs(a*x+b*y+c)/Math.sqrt(a*a+b*b);
+}
+
+function resolveCollisions(){
+  //detect all collisions and resolve accordingly
+  //todo ball to ball collisions
+  for(var i =0; i < allBlobs.length ; i++){
+    if (checkCollision(player1,allBlobs[i])){
+      //bounce off paddle todo
+      allBlobs[i].velocity.y*=-1;
+      console.log("collision with paddle 1!");
+    }else if (checkCollision(player2,allBlobs[i]) ){
+      //bounce off paddle todo
+      allBlobs[i].velocity.y*=-1;
+      console.log("collision with paddle 2!");
+    }
+  }
+}
+
 // Generate a random number. Source: 
 // "https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript"
 function randomIntFromInterval(min,max) {
@@ -95,3 +143,4 @@ function loop(timestamp) {
 }
 var lastRender = 0;
 window.requestAnimationFrame(loop);
+

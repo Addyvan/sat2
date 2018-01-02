@@ -35,7 +35,7 @@ function menu() {
       framesSinceLastMenuMove = 0;
     }
   }
-  console.log(framesSinceLastMenuMove);
+  //console.log(framesSinceLastMenuMove);
   
   menuDraw();
 }

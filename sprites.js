@@ -16,17 +16,24 @@ class Blob {
         // positional variables
         this.y = 0;
         this.x = x;
-        this.velocity_x = 0;
-        this.velocity_y = 2.5;
+        this.velocity={
+            x:0,
+            y:0
+        };
     }
     // blob physics formula (constants in settings.js)
-    updateVelocity() {
+    updateVelocity(progress) {
+        this.velocity.y-=progress*GRAVITY/1000;
+    }
 
+    update(progress){
+        this.updateVelocity(progress);
+        this.move(progress);
     }
     // update position based on velocity
-    move() {
-        this.x += this.velocity_x;
-        this.y += this.velocity_y;
+    move(progress) {
+        this.x += this.velocity.x*progress/1000;
+        this.y += this.velocity.y*progress/1000;
     }
     draw() {
         ctx.beginPath();
@@ -75,4 +82,22 @@ class Paddle {
         ctx.fillRect(-this.width/2, -this.height/2, this.width, this.height);
         ctx.restore();
     }
+    updateLineEquation(){
+        //https://stackoverflow.com/questions/1571294/line-equation-with-angle
+        if(this.rotation == this.lastRotation){
+            //so that we don't recompute this too many times but also don't have to worry about calling it often
+            return;
+        }
+        this.a=Math.tan(this.rotation);
+        this.b= -1;
+        this.c=(this.axis.y+this.height/2) -this.a*(this.axis.x+this.width/2); 
+        this.lastRotation= this.rotation;
+
+        //also store the endpoints of the line
+        this.start= this.axis.x+this.width/2-this.width/2*Math.cos(this.rotation);
+        this.end= this.axis.x+this.width/2+this.width/2*Math.cos(this.rotation);
+        //console.log("start,end",[this.start,this.end])
+
+    }
+
 }
